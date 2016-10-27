@@ -1,0 +1,19 @@
+#!/bin/bash
+
+echo "A Miracle of Science:"
+i=`ls *.jpg | wc -l`
+while true;
+do
+  i=$(($i+1))
+  if [ $i -ge 10000 ]; then
+    break
+  fi
+  padded=`printf "%.3d" $i`
+  result=`wget "http://project-apollo.net/mos/manga/mos$padded.jpg" -O "mos$padded.jpg" 2>&1 | grep "404 Not Found"`
+  if [ "$result" != "" ]
+  then
+    rm mos$padded.jpg
+    break
+  fi
+  echo "$padded"
+done 
