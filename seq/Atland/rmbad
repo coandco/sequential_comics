@@ -1,0 +1,7 @@
+#!/bin/bash
+
+for i in `seq 131 430`
+do
+  rm "atland$i.jpg"
+done
+
