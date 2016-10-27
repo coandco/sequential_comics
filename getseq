@@ -1,0 +1,11 @@
+#!/bin/bash
+
+#Should be set to the full path for the seq directory
+BASEDIR='~/comics/seq'
+
+cd $BASEDIR
+for dirname in `ls -d */ | sed -r -e 's/\///g' | egrep -v '(include|Inverloch|Narbonic|Godot_7|GG_Fanfic|Freefall_Mono|Dork_Tower|Code_Name_Hunter|Between_Two_Worlds|Cascadia|Band|Unicorn_Jelly|One_Over_Zero|Fey_Winds|Templar_Arizona|Josh_and_Imp|AEther|Minus|Nox|Better_Days|Mister_Bookseller|The_Probability_Broach|The_Broken_Mirror|Inception|I_Kill_Giants|Freak_Angels|Atland|The_Phoenix_Requiem|Persimmon_Cup|Never_Mind_the_Gap|A_Miracle_of_Science)'`;
+do
+  cd $BASEDIR/$dirname
+  ./update
+done
