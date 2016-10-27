@@ -1,0 +1,20 @@
+#!/bin/bash
+
+echo "Dan and Mab's Furry Adventure:"
+i=`ls *.jpg | wc -l`
+while true;
+do
+  i=$(($i+1))
+  if [ $i -ge 10000 ]; then
+    break
+  fi
+  padded=`printf "%.2d" $i`
+  filepadded=`printf "%.4d" $i`
+  result=`wget "http://missmab.com/Comics/Vol$padded.jpg" -O "dmfa$filepadded.jpg" 2>&1 | grep "404 Not Found"`
+  if [ "$result" != "" ]
+  then
+    rm dmfa$filepadded.jpg
+    break
+  fi
+  echo "$padded"
+done 

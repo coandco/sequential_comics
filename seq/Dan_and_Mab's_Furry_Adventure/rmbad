@@ -1,0 +1,8 @@
+#!/bin/bash
+
+for i in `find . -size 0`
+do
+  echo "$i"
+  rm "$i"
+done
+
