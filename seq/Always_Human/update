@@ -1,0 +1,50 @@
+#!/usr/bin/perl
+
+use LWP::Simple;
+
+my $currentpage = '';
+my $i = 0;
+my $interp = '';
+my @args = '';
+
+print "Always Human:\n";
+$i = `ls *.png | cut -c 1-7 | uniq | wc -l`;
+
+while(true) {
+  $i++;
+  $interp = sprintf("%04d", $i);
+  $currentpage = get("http://www.webtoons.com/en/romance/always-human/recent-episode/viewer"
+                     . "?title_no=557&episode_no=" . $i);
+
+  my @urls = ();
+  while(1) {
+    if ($currentpage =~ s/class="_images" data-url="([^"]*)"//i) {
+      my $file = $1;
+      push(@urls,$file) unless grep(/$file/, @urls);
+    } else {
+      last;
+    }
+  }
+
+  if (scalar(@urls) == 0) {
+    exit;
+  }
+
+  print "$interp\n";
+  my $referer = "http://www.webtoons.com/en/romance/always-human/";
+  for my $j (0 .. $#urls) {
+    $jinterp = sprintf("%03d", $j + 1);
+    $filename = "ah" . $interp . "_" . $jinterp . ".png";
+    print $filename . "\n";
+    print $urls[$j] . "\n";
+    $discard = `wget '$urls[$j]' --referer "$referer" -O "$filename" 2> /dev/null`;
+  }
+
+  
+
+
+  #print $interp;  
+  #print $currentpage;
+  #print $1 . " $i\n";
+  $currentpage = '';
+}
