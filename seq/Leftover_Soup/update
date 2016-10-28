@@ -1,0 +1,19 @@
+#!/bin/bash
+
+echo "Leftover Soup:"
+i=`ls *.png | wc -l`
+while true;
+do
+  i=$(($i+1))
+  if [ $i -ge 10000 ]; then
+    break
+  fi
+  padded=`printf "%.4d" $i`
+  result=`wget "http://leftoversoup.com/comics/los$padded.png" -O "los$padded.png" 2>&1 | grep "404 Not Found"`
+  if [ "$result" != "" ]
+  then
+    rm los$padded.png
+    break
+  fi
+  echo "$padded"
+done 
