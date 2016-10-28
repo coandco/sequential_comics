@@ -1,0 +1,19 @@
+#!/bin/bash
+
+echo "Fey Winds:"
+i=`ls *.jpg | wc -l`
+while true;
+do
+  i=$(($i+1))
+  if [ $i -ge 10000 ]; then
+    break
+  fi
+  padded=`printf "%.4d" $i`
+  result=`wget "http://kitsune.rydia.net/comic/pages/fw$padded.jpg" -O "fw$padded.jpg" 2>&1 | grep "404 Not Found"`
+  if [ "$result" != "" ]
+  then
+    rm fw$padded.jpg
+    break
+  fi
+  echo "$padded"
+done 
