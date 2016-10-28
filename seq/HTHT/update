@@ -1,0 +1,19 @@
+#!/bin/bash
+
+echo "HTHT:"
+i=`ls *.png | wc -l`
+while true;
+do
+  i=$(($i+1))
+  if [ $i -ge 10000 ]; then
+    break
+  fi
+  padded=`printf "%.3d" $i`
+  result=`wget "http://htht.elcenia.com/comics/htht$padded.png" -O "htht$padded.png" 2>&1 | grep "404 Not Found"`
+  if [ "$result" != "" ]
+  then
+    rm htht$padded.png
+    break
+  fi
+  echo "$padded"
+done 
