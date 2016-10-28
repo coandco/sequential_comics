@@ -1,0 +1,38 @@
+#!/usr/bin/perl
+
+use LWP::Simple;
+
+my $currentpage = '';
+my $i = 0;
+my $interp = '';
+my @args = '';
+
+print "Order of the Stick:\n";
+$i = `ls *.jpg | wc -l`;
+
+while(true)
+{
+  $i++;
+  $interp = sprintf("%04d", $i);
+  $archivepage = get("http://furryexperience.smackjeeves.com/archive/");
+  if ($archivepage !~ /$i<.td>[^<]*<td><a href="([^"]*)"/)
+  {
+    exit;
+  }
+
+  $comicurl = $1;
+
+  $currentpage = get("http://furryexperience.smackjeeves.com" . $comicurl);
+  if ($currentpage !~ /img src="([^"]*)"[^>]*id="comic_image"/)
+  {
+    exit;
+  }
+
+  #print $interp;  
+  #print $currentpage;
+  #print $1 . " $i\n";
+  print $interp . "\n";
+  $discard = `wget "$1" -O "fexp$interp.jpg" 2> /dev/null`;
+  system(@args); 
+  $currentpage = '';
+}
