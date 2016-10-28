@@ -1,0 +1,19 @@
+#!/bin/bash
+
+echo "Fantasy Realms:"
+i=`ls *.jpg | wc -l`
+while true;
+do
+  i=$(($i+1))
+  if [ $i -ge 10000 ]; then
+    break
+  fi
+  padded=`printf "%.3d" $i`
+  result=`wget "http://www.fantasyrealmsonline.com/manga/$padded.jpg" -O "frealms$padded.jpg" 2>&1 | grep "302 Found"`
+  if [ "$result" != "" ]
+  then
+    rm frealms$padded.jpg
+    break
+  fi
+  echo "$padded"
+done 
