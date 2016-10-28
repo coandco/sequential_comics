@@ -1,0 +1,74 @@
+#!/usr/bin/perl
+
+use LWP::Simple;
+use LWP::UserAgent;
+
+my $currentpage = '';
+my $i = 0;
+my $interp = '';
+my $interp2 = '';
+my @args = '';
+my $matched = '';
+my $flag = '';
+
+print "Girls With Slingshots:\n";
+$i = `ls *.jpg | wc -l`;
+
+@skiplist = (294, 1460, 1461, 1515, 1616, 1617, 1952);
+
+while(true)
+{
+  $i++;
+  $matched = '';
+  $flag = '';
+
+  if ($i > 9999)
+  {
+    exit;
+  }
+  $interp = sprintf("%04d", $i);
+  $interp2 = sprintf("%03d", $i);
+
+  if ($i ~~ @skiplist)
+  {
+    $discarded = `touch gws$interp.jpg`;
+    next;
+  }
+
+  my $ua = LWP::UserAgent->new;
+  $ua->agent("Mozilla/5.0 (Ubuntu; X11; Linux x86_64; rv:9.0.1) Gecko/20100101 Firefox/9.0.1");
+  $ua->timeout(10);
+
+  $currentpage = $ua->get("http://www.girlswithslingshots.com/comic/gws-" . $i);
+  my $matchstring = 'cc-comicbody"><a[^>]*><img[^>]*(comics\/[^"]*)"';
+  if ($currentpage->decoded_content !~ /$matchstring/)
+  {
+    $flag = 1;
+  }
+
+  $matched = $1;
+  print "1 $matched\n";
+
+  if ($flag == 1)
+  {
+    print "trying second\n";
+    $currentpage = '';
+    $currentpage = $ua->get("http://www.girlswithslingshots.com/comic/gws" . $i);
+    if ($currentpage->decoded_content !~ /$matchstring/)
+    {
+      exit;
+    }
+    $matched = $1;
+    print "2 $matched\n";
+  }
+  #print "3 $matched\n";  
+
+  #print $interp;  
+  #print $currentpage;
+  print "File: " . $matched . " $i\n";
+  print $interp . "\n";
+  $discard = `curl http://www.girlswithslingshots.com/$matched -o "gws$interp.jpg" 2> /dev/null`;
+  system(@args); 
+  $currentpage = '';
+  $matched = '';
+}
