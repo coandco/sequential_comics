@@ -1,0 +1,27 @@
+#!/bin/bash
+
+echo "Inherit the Earth:"
+i=`ls *.gif | wc -l`
+while true;
+do
+  i=$(($i+1))
+  if [ $i -ge 10000 ]; then
+    break
+  fi
+  padded=`printf "%.4d" $i`
+  result=`wget "http://www.inherittheearth.net/strips/$padded.gif" -O "inherit$padded.gif" 2>&1 | grep "404 Not Found"`
+  if [ "$result" != "" ]
+  then
+    rm inherit$padded.gif
+    echo "gif failed, trying jpg"
+    result=`wget "http://www.inherittheearth.net/strips/$padded.jpg" -O "inherit$padded.gif" 2>&1 | grep "404 Not Found"`
+    if [ "$result" != "" ]
+    then
+      rm inherit$padded.gif
+      echo "jpg failed, aborting"
+      break
+    fi
+  fi
+  echo "$padded"
+done
+
