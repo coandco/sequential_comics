@@ -1,0 +1,19 @@
+#!/bin/bash
+
+echo "Gunnerkrigg Court:"
+i=`ls *.jpg | wc -l`
+while true;
+do
+  i=$(($i+1))
+  if [ $i -ge 10000 ]; then
+    break
+  fi
+  padded=`printf "%.8d" $i`
+  result=`wget "http://www.gunnerkrigg.com/comics/$padded.jpg" -O "gunner$padded.jpg" 2>&1 | grep "404 Not Found"`
+  if [ "$result" != "" ]
+  then
+    rm gunner$padded.jpg
+    break
+  fi
+  echo "$padded"
+done 

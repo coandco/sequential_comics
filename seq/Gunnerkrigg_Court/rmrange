@@ -1,0 +1,11 @@
+#!/bin/bash
+
+i=0
+first=$1
+last=$2
+
+for i in `seq $first $last`; 
+do
+  padded=`printf "%.8d" $i`
+  echo $padded
+done
