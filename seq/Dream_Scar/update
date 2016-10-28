@@ -1,0 +1,38 @@
+#!/usr/bin/perl
+
+use LWP::Simple;
+
+my $currentpage = '';
+my $i = 0;
+my $interp = '';
+my @args = '';
+
+print "Dream*Scar:\n";
+$i = `ls *.jpg | wc -l`;
+
+while(true)
+{
+  $i++;
+  $interp = sprintf("%04d", $i);
+  print "getting http://dream-scar.net?id=" . $i . "\n";
+  $currentpage = get("http://dream-scar.net/?id=" . $i);
+  #print $currentpage . "\n";
+
+  if ($currentpage !~ /disqus_identifier = $i/)
+  {
+    exit;
+  }
+
+  if ($currentpage !~ /(files\/[^"]*)"/)
+  {
+    exit;
+  }
+
+  #print $interp;  
+  #print $currentpage;
+  print 'http://dream-scar.net/' . $1 . " $i\n";
+  print $interp . "\n";
+  $discard = `wget http://dream-scar.net/$1 -O "dscar$interp.jpg" 2> /dev/null`;
+  system(@args); 
+  $currentpage = '';
+}
