@@ -1,0 +1,30 @@
+#!/usr/bin/perl
+
+use LWP::Simple;
+
+my $currentpage = '';
+my $i = 0;
+my $interp = '';
+my @args = '';
+
+print "Everblue:\n";
+$i = `ls *.jpg | wc -l`;
+
+while(true)
+{
+  $i++;
+  $interp = sprintf("%04d", $i);
+  $currentpage = get("http://everblue-comic.com/comic?sort=" . $i);
+  if ($currentpage !~ /(assets\/images\/comics\/[^"]*)"/)
+  {
+    exit;
+  }
+
+  #print $interp;  
+  #print $currentpage;
+  #print $1 . " $i\n";
+  print $interp . "\n";
+  $discard = `wget http://everblue-comic.com/$1 -O "everblue$interp.jpg" 2> /dev/null`;
+  system(@args); 
+  $currentpage = '';
+}
