@@ -1,0 +1,37 @@
+#!/usr/bin/perl
+
+use LWP::Simple;
+
+my $currentpage = '';
+my $i = 0;
+my $interp = '';
+my @args = '';
+
+print "Lackadaisy:\n";
+$i = `ls *.jpg | wc -l`;
+@skiplist = (32);
+
+while(true)
+{
+  $i++;
+  $interp = sprintf("%03d", $i);
+  if ($i ~~ @skiplist)
+  {
+    $discard = `touch lackadaisy$interp.jpg`;
+    next;
+  }
+  $currentpage = get("http://lackadaisy.foxprints.com/comic.php?comicid=" . $i);
+  if ($currentpage !~ /(comic\/\d+\.jpg)/)
+  {
+    print ("didn't match for comic $interp" . "\n");
+    exit;
+  }
+
+  #print $interp;  
+  #print $currentpage;
+  #print $1 . " $i\n";
+  print $interp . "\n";
+  $discard = `wget http://lackadaisy.foxprints.com/$1 -O "lackadaisy$interp.jpg"`;
+  system(@args); 
+  $currentpage = '';
+}
