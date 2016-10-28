@@ -1,0 +1,19 @@
+#!/bin/bash
+
+echo "Inverloch:"
+i=`ls *.jpg | wc -l`
+while true;
+do
+  i=$(($i+1))
+  if [ $i -ge 10000 ]; then
+    break
+  fi
+  padded=`printf "%.3d" $i`
+  result=`wget "http://inverloch.seraph-inn.com/pages/$i.jpg" -O "inverloch$padded.jpg" 2>&1 | grep "404 Not Found"`
+  if [ "$result" != "" ]
+  then
+    rm inverloch$padded.jpg
+    break
+  fi
+  echo "$padded"
+done 
