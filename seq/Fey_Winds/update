@@ -11,19 +11,24 @@ print "Fey Winds:\n";
 $i = `ls *.jpg | wc -l`;
 
 $archivepage = get("http://www.feywinds.com/archive/");
+@skiplist = (214, 431);
 
 while(true)
 {
   $i++;
   $interp = sprintf("%04d", $i);
+  if ($i ~~ @skiplist)
+  {
+    $discard = `touch fw$interp.jpg`;
+    next;
+  }
 
-  if ($archivepage !~ /a href="([^"]*)">$i<.a>/)
+  if ($archivepage !~ /a href="([^"]*)">$i[^<]*<.a>/)
   {
     exit;
   }
-
   $comicurl = $1;
-  $currentpage = get($comicurl );
+  $currentpage = get($comicurl);
   if ($currentpage !~ /og.image. content="([^"]*)"/)
   {
     exit;
