@@ -1,0 +1,22 @@
+#!/bin/bash
+
+filetype='jpg'
+prefix='dkp'
+
+echo "DreamKeepers Prelude:"
+i=`ls *.${filetype} | wc -l`
+while true;
+do
+  i=$(($i+1))
+  if [ $i -ge 10000 ]; then
+    break
+  fi
+  padded=`printf "%.4d" $i`
+  result=`wget "http://www.dreamkeeperscomic.com/images/PreludeNew/P$padded.$filetype" -O "$prefix$padded.$filetype" 2>&1 | grep "404 Not Found"`
+  if [ "$result" != "" ]
+  then
+    rm $prefix$padded.$filetype
+    break
+  fi
+  echo "$padded"
+done 
