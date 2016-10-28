@@ -1,0 +1,23 @@
+#!/bin/bash
+
+echo "Freak Angels:"
+i=`ls *.jpg | wc -l`
+while true;
+do
+  i=$(($i+1))
+  epnumber=$(( (($i - 1) / 6) + 1 ))
+  eppage=$(( (($i - 1) % 6) + 1 ))
+  if [ $i -ge 10000 ]; then
+    break
+  fi
+  padded=`printf "%.4d" $i`
+  paddedep=`printf "%.4d" $epnumber`
+  echo "http://www.freakangels.com/comics/FA$paddedep-$eppage.jpg FA$padded.jpg"
+  result=`wget "http://www.freakangels.com/comics/FA$paddedep-$eppage.jpg" -O "FA$padded.jpg" 2>&1 | grep "302 Found"`
+  if [ "$result" != "" ]
+  then
+    rm FA$padded.jpg
+    break
+  fi
+  echo "$padded"
+done 
