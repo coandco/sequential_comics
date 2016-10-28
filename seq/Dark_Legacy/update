@@ -1,0 +1,49 @@
+#!/usr/bin/perl
+
+use LWP::Simple;
+
+my $currentpage = '';
+my $i = 0;
+my $interp = '';
+my @args = '';
+
+print "Dark Legacy:\n";
+$i = `ls *.jpg | wc -l`;
+
+my @skiplist = (186, 209);
+
+while(true)
+{
+  $i++;
+  $interp = sprintf("%04d", $i);
+  if ($i ~~ @skiplist) {
+    $discard = `touch "darkl$interp.jpg"`;
+    next;
+  }
+
+  print "Getting http://www.darklegacycomics.com/" . $i . "\n";
+  $currentpage = get("http://www.darklegacycomics.com/" . $i);
+  if ($currentpage !~ /comic-image. src="([^"]*)"/)
+  {
+    exit;
+  }
+
+  #print $interp;  
+  #print $currentpage;
+  #print $1 . " $i\n";
+  print $interp . "\n";
+  $url = $1;
+  if ($url !~ /http/) {
+    $url = "http://www.darklegacycomics.com/" . $url;
+  }
+  #print "Getting url: $url\n";
+  $discard = `wget $url -O "darkl$interp.jpg" 2>&1 | grep '404 Not Found'`;
+  system(@args); 
+  #print "Discard is '$discard', length is " . length($discard) . "\n";
+  if (length($discard) > 0)
+  {
+    unlink("darkl$interp.jpg");
+    exit;
+  }
+  $currentpage = '';
+}
