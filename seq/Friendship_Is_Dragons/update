@@ -1,0 +1,40 @@
+#!/usr/bin/perl
+
+use LWP::Simple;
+
+my $currentpage = '';
+my $i = 0;
+my $interp = '';
+my @args = '';
+
+print "Friendship Is Dragons:\n";
+$i = `ls *.png | wc -l`;
+
+while(true)
+{
+  $i++;
+  $interp = sprintf("%04d", $i);
+  $currentpage = get("http://friendshipisdragons.thecomicseries.com/comics/" . $i);
+
+  #If the page we just got was the current page, it will link to comics/
+  #instead of comics/###
+  if ($currentpage !~ /comics\/\d+" rel="next/)
+  {
+    exit;
+  }
+
+  if ($currentpage !~ /(images\/comics\/[^"]*)"/)
+  {
+    exit;
+  }
+
+  #print $interp;  
+  #print $currentpage;
+  #print $1 . " $i\n";
+  print $interp . "\n";
+  $discard = `wget http://friendshipisdragons.thecomicseries.com/$1 -O "fid$interp.png" 2> /dev/null`;
+  system(@args); 
+
+
+  $currentpage = '';
+}
