@@ -1,0 +1,30 @@
+#!/usr/bin/perl
+
+use LWP::Simple;
+
+my $currentpage = '';
+my $i = 0;
+my $interp = '';
+my @args = '';
+
+print "Looking For Group:\n";
+$i = `ls *.gif | wc -l`;
+
+while(true)
+{
+  $i++;
+  $interp = sprintf("%04d", $i);
+  $currentpage = get("http://www.lfg.co/page/" . $i . "/");
+  if ($currentpage !~ /og.image" content="([^"]*)"/)
+  {
+    exit;
+  }
+
+  #print $interp;  
+  #print $currentpage;
+  #print $1 . " $i\n";
+  print $interp . "\n";
+  $discard = `wget $1 -O "lfg$interp.gif"`;
+  system(@args); 
+  $currentpage = '';
+}
