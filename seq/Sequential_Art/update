@@ -1,0 +1,37 @@
+#!/bin/bash
+
+echo "Sequential Art:"
+i=`ls *.jpg | wc -l`
+
+declare -A alturls
+alturls[743]="http://www.collectedcurios.com/SA_0742_small_b.jpg"
+alturls[791]="http://www.collectedcurios.com/SA_0791_small_b.jpg"
+
+while true;
+do
+  i=$(($i+1))
+  if [ $i -ge 10000 ]; then
+    break
+  fi
+  padded=`printf "%.4d" $i`
+
+  if [ "x${alturls[$i]}" != "x" ]
+  then
+    result=`wget "${alturls[$i]}" -O "SA$padded.jpg" 2>&1 | grep "404 Not Found"`
+    if [ "$result" != "" ]
+    then
+      rm SA$padded.jpg
+      break
+    fi
+    echo "$padded"
+    continue
+  fi
+
+  result=`wget "http://www.collectedcurios.com/SA_${padded}_small.jpg" -O "SA$padded.jpg" 2>&1 | grep "404 Not Found"`
+  if [ "$result" != "" ]
+  then
+    rm SA$padded.jpg
+    break
+  fi
+  echo "$padded"
+done
