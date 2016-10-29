@@ -1,11 +1,10 @@
 <?php
-$comicname = "Freefall Color";
-$fileprefix = "fc";
+$comicname = "Freefall";
+$fileprefix = "ff";
 $filetype = "png";
 $perpage = "50";
 $padamount = "5";
-$archivename = "Freefall";
-$archivestart = "1252";
+$archivename = "";
 ?>
 <?php include "../include/paged.php"; ?>
 
