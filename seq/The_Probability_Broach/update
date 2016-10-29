@@ -1,0 +1,19 @@
+#!/bin/bash
+
+echo "Probability Broach:"
+i=`ls *.jpg | wc -l`
+while true;
+do
+  i=$(($i+1))
+  if [ $i -ge 186 ]; then
+    break
+  fi
+  padded=`printf "%.3d" $i`
+  result=`wget "http://www.bigheadpress.com/disppage2?story=TPB&file=/simages/TPB/TPBp$padded.jpg" -O "TPB$padded.jpg" 2>&1 | grep "404 Not Found"`
+  if [ "$result" != "" ]
+  then
+    rm TPB$padded.jpg
+    break
+  fi
+  echo "$padded"
+done 
