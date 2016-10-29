@@ -1,0 +1,30 @@
+#!/bin/bash
+
+
+echo "Questionable Content:"
+i=`ls *.png | wc -l`
+while true;
+do
+  i=$(($i+1))
+  if [ $i -ge 10000 ]; then
+    break
+  fi
+  padded=`printf "%.4d" $i`
+  result=`wget "http://www.questionablecontent.net/comics/$i.png" -O "qc$padded.png" 2>&1 | grep "404 Not Found"`
+  if [ "$result" != "" ]
+  then
+    rm qc$padded.png
+    result=`wget "http://www.questionablecontent.net/comics/$i.jpg" -O "qc$padded.png" 2>&1 | grep "404 Not Found"`
+    if [ "$result" != "" ]
+    then
+      rm qc$padded.png
+      result=`wget "http://www.questionablecontent.net/comics/$i.gif" -O "qc$padded.png" 2>&1 | grep "404 Not Found"`
+      if [ "$result" != "" ]
+      then
+        rm qc$padded.png
+        break
+      fi
+    fi
+  fi
+  echo "$padded"
+done
