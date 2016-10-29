@@ -1,0 +1,37 @@
+#!/usr/bin/perl
+
+use LWP::Simple;
+
+my $currentpage = '';
+my $i = 0;
+my $interp = '';
+my @args = '';
+my $maxpage = '';
+my $maxcomic = 0;
+
+print "WTF Comics:\n";
+$i = `ls *.jpg | wc -l`;
+
+$maxpage = get("http://www.wtfcomics.com/index.html");
+
+if ($maxpage !~ /var newest_issues.*?,([0-9]+)";/)
+{
+  print "WTF Comics: couldn't get maxcomic\n";
+  exit;
+}
+
+$maxcomic = $1;
+
+while($i < $maxcomic)
+{
+  $i++;
+  $interp = sprintf("%04d", $i);
+
+  #print $interp;  
+  #print $currentpage;
+  #print $1 . " $i\n";
+  print $interp . "\n";
+  $discard = `wget http://www.s214135040.onlinehome.us/strip$i.jpg -O "WTF$interp.jpg" 2> /dev/null`;
+  system(@args); 
+  $currentpage = '';
+}
