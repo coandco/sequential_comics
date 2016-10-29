@@ -1,0 +1,37 @@
+#!/usr/bin/perl
+
+use LWP::Simple;
+
+my $currentpage = '';
+my $i = 0;
+my $interp = '';
+my @args = '';
+my $maxpage = '';
+my $maxcomic = 0;
+
+print "WTF Comics: Smoke's Tale:\n";
+$i = `ls *.jpg | wc -l`;
+
+$maxpage = get("http://www.wtfcomics.com/smoke/index.html");
+
+if ($maxpage !~ /var newest_issues.*?,([0-9]+)";/)
+{
+  print "WTF Comics: Smoke's Tale: couldn't get maxcomic\n";
+  exit;
+}
+
+$maxcomic = $1;
+
+while($i < $maxcomic)
+{
+  $i++;
+  $interp = sprintf("%04d", $i);
+
+  #print $interp;  
+  #print $currentpage;
+  #print $1 . " $i\n";
+  print $interp . "\n";
+  $discard = `wget http://www.s214135040.onlinehome.us/smoke/strip$i.jpg -O "WTFSmoke$interp.jpg" 2> /dev/null`;
+  system(@args); 
+  $currentpage = '';
+}
