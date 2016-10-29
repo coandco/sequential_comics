@@ -1,0 +1,38 @@
+#!/usr/bin/perl
+
+use LWP::Simple;
+
+my $currentpage = '';
+my $i = 0;
+my $interp = '';
+my @args = '';
+
+print "VGCats:\n";
+$i = `ls *.jpg | wc -l`;
+
+while(true)
+{
+  $interp = sprintf("%03d", $i + 1);
+  $currentpage = get("http://www.vgcats.com/comics/?strip_id=" . $i);
+  #print $currentpage;
+
+  if ($currentpage !~ /(images\/[0-9]\w+\.(gif|jpg))/)
+  {
+    exit;
+  }
+
+  $filename = $1;  
+  #print $filename . "\n";
+  $filetype = $2;
+
+  if ($currentpage !~ /next.gif/)
+  {
+    exit;
+  }
+
+  #print $interp;  
+  print $interp . "\n";
+  $discard = `wget http://www.vgcats.com/comics/$filename -O "vgcats$interp.jpg" 2> /dev/null`;
+  $currentpage = '';
+  $i++;
+}
