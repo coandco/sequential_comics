@@ -1,0 +1,29 @@
+#!/bin/bash
+
+echo "Freefall:"
+i=`ls *.png | wc -l`
+
+while true;
+do
+  comicblock=$(($i/100))
+  comicblock=$(($comicblock+1))
+  comicblock=$(($comicblock*100))
+
+  i=$(($i+1))
+  if [ $i -ge 10000 ]; then
+    break
+  fi
+  padded=`printf "%.5d" $i`
+
+  result=`wget "http://freefall.purrsia.com/ff$comicblock/fc$padded.png" -O "ff$padded.png" 2>&1 | grep "404 Not Found"`
+  if [ "$result" != "" ]
+  then
+    rm ff$padded.png
+    result=`wget "http://freefall.purrsia.com/ff$comicblock/fv$padded.gif" -O "ff$padded.png" 2>&1 | grep "404 Not Found"`
+    if [ "$result" != "" ]
+    then
+      break
+    fi
+  fi
+  echo "$padded"
+done 
