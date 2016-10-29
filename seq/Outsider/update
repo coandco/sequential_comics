@@ -1,0 +1,23 @@
+#!/bin/bash
+
+echo "Outsider:"
+i=`ls *.jpg | wc -l`
+while true;
+do
+  i=$(($i+1))
+  if [ $i -eq 80 ]; then
+    touch "outsider$padded.jpg"
+    continue
+  fi
+  if [ $i -ge 10000 ]; then
+    break
+  fi
+  padded=`printf "%.3d" $i`
+  result=`wget "http://well-of-souls.com/gallery/images/outsider$padded.jpg" -O "outsider$padded.jpg" 2>&1 | grep "404 Not Found"`
+  if [ "$result" != "" ]
+  then
+    rm outsider$padded.jpg
+    break
+  fi
+  echo "$padded"
+done 
