@@ -1,0 +1,40 @@
+#!/usr/bin/perl
+
+use LWP::Simple;
+
+my $currentpage = '';
+my $i = 0;
+my $interp = '';
+my @args = '';
+
+print "Wasted Talent:\n";
+$i = `ls *.jpg | wc -l`;
+
+while(true)
+{
+  $i++;
+  if ($i > 10000)
+  {
+    exit;
+  }
+  $interp = sprintf("%04d", $i);
+  $currentpage = get("http://www.wastedtalent.ca/archive/list?field_comic_number_value=" . $i);
+  if ($currentpage !~ /views-field-title[^<]*<a href="\/(comic[^"]*)"/)
+  {
+    exit;
+  }
+
+  $currentpage = get("http://www.wastedtalent.ca/$1");
+  if ($currentpage !~ /(sites\/default\/files\/imagecache\/comic_full\/[^"]*)"/)
+  {
+    exit;
+  }
+
+  #print $interp;  
+  #print $currentpage;
+  print $1 . " $i\n";
+  print $interp . "\n";
+  $discard = `wget http://www.wastedtalent.ca/$1 -O "wasted$interp.jpg" 2> /dev/null`;
+  system(@args); 
+  $currentpage = '';
+}
