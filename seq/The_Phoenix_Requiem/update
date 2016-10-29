@@ -1,0 +1,19 @@
+#!/bin/bash
+
+echo "The Phoenix Requiem:"
+i=`ls *.jpg | wc -l`
+while true;
+do
+  i=$(($i+1))
+  if [ $i -ge 10000 ]; then
+    break
+  fi
+  padded=`printf "%.3d" $i`
+  result=`wget "http://requiem.seraph-inn.com/pages/$i.jpg" -O "phoenix$padded.jpg" 2>&1 | grep "404 Not Found"`
+  if [ "$result" != "" ]
+  then
+    rm phoenix$padded.jpg
+    break
+  fi
+  echo "$padded"
+done 
