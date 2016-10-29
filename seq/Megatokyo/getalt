@@ -1,0 +1,6 @@
+#!/bin/bash
+
+echo wget http://www.megatokyo.com/strips/$1.jpg -O megatokyo$1.gif
+wget http://www.megatokyo.com/strips/$1.jpg -O megatokyo$1.gif
+./update
+

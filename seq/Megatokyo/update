@@ -1,0 +1,30 @@
+#!/usr/bin/perl
+
+use LWP::Simple;
+
+my $currentpage = '';
+my $i = 0;
+my $interp = '';
+my @args = '';
+
+print "MegaTokyo:\n";
+$i = `ls *.gif | wc -l`;
+
+while(true)
+{
+  $i++;
+  $interp = sprintf("%04d", $i);
+  $currentpage = get("http://megatokyo.com/strip/$i");
+  if ($currentpage !~ /(strips\/\d+[^"]*)"/)
+  {
+    exit;
+  }
+
+  #print $interp;  
+  #print $currentpage;
+  #print $1 . " $i\n";
+  print $interp . "\n";
+  $discard = `wget http://megatokyo.com/$1 -O "megatokyo$interp.gif" 2> /dev/null`;
+  system(@args); 
+  $currentpage = '';
+}
