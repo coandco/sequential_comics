@@ -1,0 +1,49 @@
+#!/usr/bin/perl
+
+use LWP::Simple;
+
+my $currentpage = '';
+my $i = 0;
+my $interp = '';
+my @args = '';
+
+print "JL8:\n";
+$i = `ls *.jpg | cut -c 1-11 | uniq | wc -l`;
+
+while(true) {
+  $i++;
+  $interp = sprintf("%04d", $i);
+  $currentpage = get("http://limbero.org/jl8/" . $i);
+
+  my @urls = ();
+  while(1) {
+    if ($currentpage =~ s/src="([^"]*$i[^"]*)" alt="Comic"//i) {
+      my $file = $1;
+      push(@urls,$file) unless grep(/$file/, @urls);
+    } else {
+      last;
+    }
+  }
+
+  if (scalar(@urls) == 0) {
+    exit;
+  }
+
+  print "$interp\n";
+  my $referer = "http://limbero.org/jl8";
+  for my $j (0 .. $#urls) {
+    $jinterp = sprintf("%03d", $j + 1);
+    $filename = "jleight" . $interp . "_" . $jinterp . ".jpg";
+    print $filename . "\n";
+    print $urls[$j] . "\n";
+    $discard = `wget '$urls[$j]' --referer "$referer" -O "$filename" 2> /dev/null`;
+  }
+
+  
+
+
+  #print $interp;  
+  #print $currentpage;
+  #print $1 . " $i\n";
+  $currentpage = '';
+}
