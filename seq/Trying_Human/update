@@ -1,0 +1,42 @@
+#!/usr/bin/perl
+
+use LWP::Simple;
+
+my $currentpage = '';
+my $i = 0;
+my $interp = '';
+my @args = '';
+
+print "Trying Human:\n";
+$i = `ls *.jpg | wc -l`;
+
+$archivepage = get("http://www.tryinghuman.com/archive");
+
+@override = (588);
+
+while(true)
+{
+  $i++;
+  $interp = sprintf("%04d", $i);
+  if ($archivepage !~ /id=$i/)
+  {
+    if (!($i ~~ @override))
+    {
+      exit;
+    }
+  }
+
+  $currentpage = get("http://www.tryinghuman.com/index.php?id=" . $i);
+  if ($currentpage !~ /cc-comicbody">.*?<img[^>]*src="([^"]*)"/)
+  {
+    exit;
+  }
+
+  #print $interp;  
+  #print $currentpage;
+  #print $1 . " $i\n";
+  print $interp . "\n";
+  $discard = `wget $1 -O "thuman$interp.jpg" 2> /dev/null`;
+  system(@args); 
+  $currentpage = '';
+}
