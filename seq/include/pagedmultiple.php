@@ -52,7 +52,11 @@ if ($startpage < ceil($numcomics/$perpage))
 print ' <a href="index.php?p=' . ceil($numcomics/$perpage) . '">Last Page</a>';
 print "<br />\n";
 
-
+if (isset($maxwidth)) {
+  $widthstr = " width='$maxwidth' ";
+} else {
+  $widthstr = "";
+}
 $currentcomic = ((($startpage - 1) * $perpage) + 1) + $archivestart;
 
 for ($i = 1; $i <= $perpage; $i++)
@@ -62,12 +66,16 @@ for ($i = 1; $i <= $perpage; $i++)
     break;
   }
   $padded = sprintf("%0" . $padamount . "d", $currentcomic);
-  $files = preg_grep("/$fileprefix$padded/",$filelist); 
+  $files = preg_grep("/$fileprefix$padded/",$filelist);
 
   print "<table cellspacing=\"0\" cellpadding=\"0\" border=\"0\">\n";
   print "  <tr>\n";
   print "    <td bgcolor=\"black\" align=\"center\">\n";
-  print "      <font color=\"white\"><b>$comicname #$currentcomic</b></font>\n";
+  if (isset($comiclink)) {
+    print "      <font color=\"white\"><b><a href='$comiclink' style='color:white'>$comicname</a> #$currentcomic</b></font>\n";
+  } else {
+    print "      <font color=\"white\"><b>$comicname #$currentcomic</b></font>\n";
+  }
   print "    </td>\n";
   print "  </tr>\n";
   print "  <tr>\n";
@@ -75,14 +83,14 @@ for ($i = 1; $i <= $perpage; $i++)
 
   foreach ($files as $file)
   {
-    print "      <img src=\"" . $file . "\" /><br />\n";
+    print '      <img src="' . $file . '"' . $widthstr . '/><br />' . "\n";
   }
 
   print "    </td>\n";
   print "  </tr>\n";
   print "</table>\n";
   print "<br />\n";
-  
+
   $currentcomic = $currentcomic + 1;
 }
 

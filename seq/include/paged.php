@@ -59,7 +59,11 @@ for ($i = 1; $i <= $perpage; $i++)
   print "<table cellspacing=\"0\" cellpadding=\"0\" border=\"0\">\n";
   print "  <tr>\n";
   print "    <td bgcolor=\"black\" align=\"center\">\n";
-  print "      <font color=\"white\"><b>$comicname #$currentcomic</b></font>\n";
+  if (isset($comiclink)) {
+    print "      <font color=\"white\"><b><a href='$comiclink' style='color:white'>$comicname</a> #$currentcomic</b></font>\n";
+  } else {
+    print "      <font color=\"white\"><b>$comicname #$currentcomic</b></font>\n";
+  }
   print "    </td>\n";
   print "  </tr>\n";
   print "  <tr>\n";
@@ -69,7 +73,7 @@ for ($i = 1; $i <= $perpage; $i++)
   print "  </tr>\n";
   print "</table>\n";
   print "<br />\n";
-  
+
   $currentcomic = $currentcomic + 1;
 }
 
