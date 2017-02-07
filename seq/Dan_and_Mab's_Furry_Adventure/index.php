@@ -1,5 +1,6 @@
 <?php
 $comicname = "Dan and Mab's Furry Adventures";
+$comiclink = "http://www.missmab.com/";
 $fileprefix = "dmfa";
 $filetype = "jpg";
 $perpage = "50";

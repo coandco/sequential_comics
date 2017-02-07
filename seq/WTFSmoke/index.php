@@ -1,5 +1,6 @@
 <?php
 $comicname = "WTF Comics: Smoke's Tale";
+$comiclink = "http://www.wtfcomics.com/smoke/index.html";
 $fileprefix = "WTFSmoke";
 $filetype = "jpg";
 $perpage = "50";

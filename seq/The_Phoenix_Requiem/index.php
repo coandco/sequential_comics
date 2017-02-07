@@ -1,5 +1,6 @@
 <?php
 $comicname = "The Phoenix Requiem";
+$comiclink = "http://requiem.seraph-inn.com";
 $fileprefix = "phoenix";
 $filetype = "jpg";
 $perpage = "50";

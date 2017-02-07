@@ -1,5 +1,6 @@
 <?php
 $comicname = "Lackadaisy";
+$comiclink = "http://lackadaisy.foxprints.com/";
 $fileprefix = "lackadaisy";
 $filetype = "jpg";
 $perpage = "50";

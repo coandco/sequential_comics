@@ -1,5 +1,6 @@
 <?php
 $comicname = "Inverloch";
+$comiclink = "http://inverloch.seraph-inn.com";
 $fileprefix = "inverloch";
 $filetype = "jpg";
 $perpage = "50";

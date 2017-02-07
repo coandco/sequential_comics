@@ -1,5 +1,6 @@
 <?php
 $comicname = "Multiplex";
+$comiclink = "http://www.multiplexcomic.com";
 $fileprefix = "multiplex";
 $filetype = "jpg";
 $perpage = "50";

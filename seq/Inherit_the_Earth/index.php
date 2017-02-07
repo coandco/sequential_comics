@@ -1,5 +1,6 @@
 <?php
 $comicname = "Inherit the Earth";
+$comiclink = "http://www.inherittheearth.net";
 $fileprefix = "inherit";
 $filetype = "jpg";
 $perpage = "50";

@@ -1,5 +1,6 @@
 <?php
 $comicname = "Furry Experience";
+$comicname = "http://furryexperience.smackjeeves.com";
 $fileprefix = "fexp";
 $filetype = "jpg";
 $perpage = "50";

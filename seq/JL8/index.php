@@ -1,5 +1,6 @@
 <?php
 $comicname = "JL8";
+$comiclink = "http://limbero.org/jl8/";
 $fileprefix = "jleight";
 $filetype = "jpg";
 $perpage = "50";

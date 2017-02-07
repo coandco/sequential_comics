@@ -1,5 +1,6 @@
 <?php
 $comicname = "Friendship Is Dragons";
+$comiclink = "http://friendshipisdragons.thecomicseries.com";
 $fileprefix = "fid";
 $filetype = "png";
 $perpage = "50";

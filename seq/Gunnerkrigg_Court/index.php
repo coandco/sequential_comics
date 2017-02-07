@@ -1,5 +1,6 @@
 <?php
 $comicname = "Gunnerkrigg Court";
+$comiclink = "http://www.gunnerkrigg.com/";
 $fileprefix = "gunner";
 $filetype = "jpg";
 $perpage = "50";

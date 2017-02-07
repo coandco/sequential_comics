@@ -1,5 +1,6 @@
 <?php
 $comicname = "WTF Comics";
+$comiclink = "http://www.wtfcomics.com";
 $fileprefix = "WTF";
 $filetype = "jpg";
 $perpage = "50";

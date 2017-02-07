@@ -1,5 +1,6 @@
 <?php
 $comicname = "The Probability Broach";
+$comiclink = "http://www.bigheadpress.com/tpbtgn";
 $fileprefix = "TPB";
 $filetype = "jpg";
 $perpage = "50";

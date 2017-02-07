@@ -1,5 +1,6 @@
 <?php
 $comicname = "My Little Pony: Friendship Is Betrayal";
+$comiclink = "http://mlp-fib.thecomicseries.com";
 $fileprefix = "fib";
 $filetype = "jpg";
 $perpage = "50";

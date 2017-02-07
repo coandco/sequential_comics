@@ -1,5 +1,6 @@
 <?php
 $comicname = "Dark Legacy";
+$comiclink = "http://www.darklegacycomics.com/";
 $fileprefix = "darkl";
 $filetype = "jpg";
 $perpage = "50";

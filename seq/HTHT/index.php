@@ -1,5 +1,6 @@
 <?php
 $comicname = "HTHT";
+$comiclink = "http://htht.elcenia.com";
 $fileprefix = "htht";
 $filetype = "png";
 $perpage = "50";

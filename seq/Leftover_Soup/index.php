@@ -1,5 +1,6 @@
 <?php
 $comicname = "Leftover Soup";
+$comiclink = "http://leftoversoup.com";
 $fileprefix = "los";
 $filetype = "png";
 $perpage = "50";

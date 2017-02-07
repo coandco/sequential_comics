@@ -1,5 +1,6 @@
 <?php
 $comicname = "Everblue";
+$comiclink = "http://everblue-comic.com";
 $fileprefix = "everblue";
 $filetype = "jpg";
 $perpage = "50";

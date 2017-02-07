@@ -1,5 +1,6 @@
 <?php
 $comicname = "Freefall";
+$comiclink = "http://freefall.purrsia.com";
 $fileprefix = "ff";
 $filetype = "png";
 $perpage = "50";

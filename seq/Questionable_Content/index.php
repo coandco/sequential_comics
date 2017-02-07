@@ -1,5 +1,6 @@
 <?php
 $comicname = "Questionable Content";
+$comiclink = "http://www.questionablecontent.net";
 $fileprefix = "qc";
 $filetype = "png";
 $perpage = "50";

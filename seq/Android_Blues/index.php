@@ -1,5 +1,6 @@
 <?php
 $comicname = "Android Blues";
+$comiclink = "http://www.androidblues.com";
 $fileprefix = "ablues";
 $filetype = "jpg";
 $perpage = "50";

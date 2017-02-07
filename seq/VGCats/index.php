@@ -1,5 +1,6 @@
 <?php
 $comicname = "VGCats";
+$comiclink = "http://www.vgcats.com";
 $fileprefix = "vgcats";
 $filetype = "jpg";
 $perpage = "50";

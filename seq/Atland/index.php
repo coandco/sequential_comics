@@ -1,5 +1,6 @@
 <?php
 $comicname = "Atland";
+$comiclink = "http://www.realmofatland.com/";
 $fileprefix = "atland";
 $filetype = "jpg";
 $perpage = "50";

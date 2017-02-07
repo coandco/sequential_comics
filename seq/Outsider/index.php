@@ -1,5 +1,6 @@
 <?php
 $comicname = "Outsider";
+$comiclink = "http://well-of-souls.com/outsider/";
 $fileprefix = "outsider";
 $filetype = "jpg";
 $perpage = "50";

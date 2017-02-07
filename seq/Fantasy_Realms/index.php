@@ -1,5 +1,6 @@
 <?php
 $comicname = "Fantasy Realms";
+$comiclink = "http://www.fantasyrealmsonline.com/manga.php";
 $fileprefix = "frealms";
 $filetype = "jpg";
 $perpage = "50";

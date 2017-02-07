@@ -1,5 +1,6 @@
 <?php
 $comicname = "Megatokyo";
+$comiclink = "http://megatokyo.com";
 $fileprefix = "megatokyo";
 $filetype = "gif";
 $perpage = "50";
