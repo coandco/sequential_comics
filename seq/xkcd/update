@@ -16,7 +16,6 @@ while(true)
 {
   $i++;
   $interp = sprintf("%04d", $i);
-
   if ($i ~~ @skiplist)
   {
     print "Skipping $i\n";
@@ -26,18 +25,17 @@ while(true)
 
   $currentpage = get("http://xkcd.com/" . $i . "/");
 
-  if ($currentpage !~ /imgs.xkcd.com\/comics\/([^"]*)\.(gif|jpg|png)/)
+  if ($currentpage !~ /imgs.xkcd.com\/comics\/([^"\n]*)"/)
   {
     exit;
   }
 
-  $extension = $2;
   $escaped = $1;
+  print $interp . " - " . "http://imgs.xkcd.com/comics/$escaped" . "\n";
   $escaped =~ s/([^A-Za-z0-9_])/sprintf("%%%02X", ord($1))/seg; #urlencode match
   #print $interp;  
   #print $currentpage;
   #print $1 . " $i\n";
-  print $interp . " - " . "http://imgs.xkcd.com/comics/$escaped.$extension" . "\n";
-  $discard = `wget http://imgs.xkcd.com/comics/$escaped.$extension -O "xkcd$interp.png" 2> /dev/null`;
+  $discard = `wget http://imgs.xkcd.com/comics/$escaped -O "xkcd$interp.png" 2> /dev/null`;
   $currentpage = '';
 }
