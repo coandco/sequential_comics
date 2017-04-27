@@ -1,0 +1,36 @@
+#!/usr/bin/perl
+
+use LWP::Simple;
+use LWP::UserAgent;
+
+my $currentpage = '';
+my $i = 0;
+my $interp = '';
+my @args = '';
+
+print "Draconia:\n";
+$i = `ls *.jpg | wc -l`;
+
+while(true)
+{
+  $i++;
+  $interp = sprintf("%03d", $i);
+  my $ua = LWP::UserAgent->new;
+  $ua->agent("Mozilla/5.0 (Ubuntu; X11; Linux x86_64; rv:9.0.1) Gecko/20100101 Firefox/9.0.1");
+  $ua->timeout(10);
+
+  $currentpage = $ua->get("http://draconia.katbox.net/archive/page/" . $i . "/");
+
+  if ($currentpage->decoded_content !~ /src="([^"]*)"[^>]*data-webcomic-parent/)
+  {
+    exit;
+  }
+
+  #print $interp;  
+  #print $currentpage;
+  #print $1 . " $i\n";
+  print $interp . "\n";
+  $discard = `wget "$1" -O "draconia$interp.jpg" 2> /dev/null`;
+  system(@args); 
+  $currentpage = '';
+}
