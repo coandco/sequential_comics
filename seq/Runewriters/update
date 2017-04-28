@@ -30,7 +30,7 @@ while(true) {
     exit;
   }
 
-  $currentpage = $ua->get("http://runewriters.com/index.php?c=" . $comics[i-1]);
+  $currentpage = $ua->get("http://runewriters.com/index.php?c=" . $comics[$i-1]);
 
   if ($currentpage->decoded_content !~ /div id="comic"><img src="([^"]*)"/) {
     exit;
