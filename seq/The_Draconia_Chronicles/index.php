@@ -1,5 +1,5 @@
 <?php
-$comicname = "Draconia";
+$comicname = "The Draconia Chronicles";
 $comiclink = "http://draconia.katbox.net";
 $fileprefix = "draconia";
 $filetype = "jpg";

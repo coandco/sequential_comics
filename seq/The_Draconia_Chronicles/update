@@ -8,7 +8,7 @@ my $i = 0;
 my $interp = '';
 my @args = '';
 
-print "Draconia:\n";
+print "The Draconia Chronicles:\n";
 $i = `ls *.jpg | wc -l`;
 
 while(true)
