@@ -1,0 +1,46 @@
+#!/usr/bin/perl
+
+use LWP::Simple;
+use LWP::UserAgent;
+use Data::Dumper;
+
+my $currentpage = '';
+my $i = 0;
+my $interp = '';
+my @args = '';
+
+print "Runewriters:\n";
+$i = `ls *.jpg | wc -l`;
+
+
+my $ua = LWP::UserAgent->new;
+$ua->agent("Mozilla/5.0 (Ubuntu; X11; Linux x86_64; rv:9.0.1) Gecko/20100101 Firefox/9.0.1");
+$ua->timeout(10);
+
+$archivepage = $ua->get("http://runewriters.com/archive.php");
+
+my @comics = $archivepage->decoded_content =~ /<a href="..index.php.c=([0-9]+)"/g;
+
+while(true) {
+  $i++;
+  $interp = sprintf("%04d", $i);
+
+  # scalar @array == length of the array
+  if ($i > scalar @comics) {
+    exit;
+  }
+
+  $currentpage = $ua->get("http://runewriters.com/index.php?c=" . $comics[i-1]);
+
+  if ($currentpage->decoded_content !~ /div id="comic"><img src="([^"]*)"/) {
+    exit;
+  }
+
+  #print $interp;  
+  #print $currentpage;
+  #print $1 . " $i\n";
+  print $interp . "\n";
+  $discard = `wget http://runewriters.com/$1 -O "runew$interp.jpg" 2> /dev/null`;
+  system(@args); 
+  $currentpage = '';
+}
