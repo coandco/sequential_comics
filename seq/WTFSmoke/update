@@ -32,6 +32,5 @@ while($i < $maxcomic)
   #print $1 . " $i\n";
   print $interp . "\n";
   $discard = `wget http://www.s214135040.onlinehome.us/smoke/strip$i.jpg -O "WTFSmoke$interp.jpg" 2> /dev/null`;
-  system(@args); 
   $currentpage = '';
 }

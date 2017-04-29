@@ -5,7 +5,6 @@ name="multiplex"
 
 echo "Multiplex:"
 i=`ls *.$filetype | wc -l`
-
 while true;
 do
   i=$(($i+1))
@@ -13,17 +12,11 @@ do
     break
   fi
   padded=`printf "%.3d" $i`
-  wget "http://www.multiplexcomic.com/images/strips/multiplex-$padded.png" -O "$name$padded.$filetype" > /dev/null 2>&1
-
-  if [ "x`file $name$padded.$filetype | grep '\(HTML\|empty\)'`" != "x" ];
+  result=`wget "http://www.multiplexcomic.com/images/strips/multiplex-$padded.png" -O "$name$padded.$filetype" 2>&1 | grep "16065"`
+  if [ "x`file $name$padded.$filetype | grep HTML`" != "x" ];
   then
     rm $name$padded.$filetype
-    wget "http://img.multiplex10.com/strips/multiplex-$padded.jpg" -O "$name$padded.$filetype" > /dev/null 2>&1
-    if [ "x`file $name$padded.$filetype | grep '\(HTML\|empty\)'`" != "x" ];
-    then
-      rm $name$padded.$filetype
-      break
-    fi
+    break
   fi
   echo "$padded"
-done
+done 

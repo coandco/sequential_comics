@@ -12,18 +12,13 @@ $i = `ls *.jpg | wc -l`;
 
 $archivepage = get("http://www.tryinghuman.com/archive");
 
-@override = (588);
-
 while(true)
 {
   $i++;
   $interp = sprintf("%04d", $i);
   if ($archivepage !~ /id=$i/)
   {
-    if (!($i ~~ @override))
-    {
-      exit;
-    }
+    exit;
   }
 
   $currentpage = get("http://www.tryinghuman.com/index.php?id=" . $i);
@@ -37,6 +32,5 @@ while(true)
   #print $1 . " $i\n";
   print $interp . "\n";
   $discard = `wget $1 -O "thuman$interp.jpg" 2> /dev/null`;
-  system(@args); 
   $currentpage = '';
 }

@@ -31,6 +31,5 @@ while(true)
   #print $1 . " $i\n";
   print $interp . "\n";
   $discard = `wget http://www.giantitp.com/$1 -O "oots$interp.gif" 2> /dev/null`;
-  system(@args); 
   $currentpage = '';
 }

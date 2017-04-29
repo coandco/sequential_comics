@@ -25,6 +25,5 @@ while(true)
   #print $1 . " $i\n";
   print $interp . "\n";
   $discard = `wget http://megatokyo.com/$1 -O "megatokyo$interp.gif" 2> /dev/null`;
-  system(@args); 
   $currentpage = '';
 }

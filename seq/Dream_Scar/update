@@ -33,6 +33,5 @@ while(true)
   print 'http://dream-scar.net/' . $1 . " $i\n";
   print $interp . "\n";
   $discard = `wget http://dream-scar.net/$1 -O "dscar$interp.jpg" 2> /dev/null`;
-  system(@args); 
   $currentpage = '';
 }

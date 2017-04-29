@@ -33,7 +33,6 @@ while(true)
   #print $1 . " $i\n";
   print $interp . "\n";
   $discard = `wget http://mlp-fib.thecomicseries.com/$1 -O "fib$interp.jpg" 2> /dev/null`;
-  system(@args); 
 
 
   $currentpage = '';

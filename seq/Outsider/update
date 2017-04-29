@@ -5,10 +5,6 @@ i=`ls *.jpg | wc -l`
 while true;
 do
   i=$(($i+1))
-  if [ $i -eq 80 ]; then
-    touch "outsider$padded.jpg"
-    continue
-  fi
   if [ $i -ge 10000 ]; then
     break
   fi

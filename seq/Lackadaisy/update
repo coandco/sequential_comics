@@ -32,6 +32,5 @@ while(true)
   #print $1 . " $i\n";
   print $interp . "\n";
   $discard = `wget http://lackadaisy.foxprints.com/$1 -O "lackadaisy$interp.jpg"`;
-  system(@args); 
   $currentpage = '';
 }

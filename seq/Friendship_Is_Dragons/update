@@ -33,7 +33,6 @@ while(true)
   #print $1 . " $i\n";
   print $interp . "\n";
   $discard = `wget http://friendshipisdragons.thecomicseries.com/$1 -O "fid$interp.png" 2> /dev/null`;
-  system(@args); 
 
 
   $currentpage = '';

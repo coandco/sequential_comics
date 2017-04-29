@@ -32,6 +32,5 @@ while(true)
   #print $1 . " $i\n";
   print $interp . "\n";
   $discard = `wget $1 -O "terra$interp.jpg" 2> /dev/null`;
-  system(@args); 
   $currentpage = '';
 }

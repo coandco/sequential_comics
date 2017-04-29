@@ -13,10 +13,11 @@ $i = `ls *.jpg | wc -l`;
 while(true)
 {
   $interp = sprintf("%03d", $i + 1);
+  print "Getting http://www.vgcats.com/comics/?strip_id=" . $i . "\n";
   $currentpage = get("http://www.vgcats.com/comics/?strip_id=" . $i);
   #print $currentpage;
 
-  if ($currentpage !~ /(images\/[0-9]\w+\.(gif|jpg))/)
+  if ($currentpage !~ /"(images\/[0-9]\w+\.(gif|jpg))/)
   {
     exit;
   }

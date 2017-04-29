@@ -37,6 +37,5 @@ while(true)
   #print $1 . " $i\n";
   print $interp . "\n";
   $discard = `curl http://www.egscomics.com/$1 -o "egs$interp.gif" 2> /dev/null`;
-  system(@args); 
   $currentpage = '';
 }

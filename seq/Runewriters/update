@@ -2,7 +2,6 @@
 
 use LWP::Simple;
 use LWP::UserAgent;
-use Data::Dumper;
 
 my $currentpage = '';
 my $i = 0;
@@ -41,6 +40,5 @@ while(true) {
   #print $1 . " $i\n";
   print $interp . "\n";
   $discard = `wget http://runewriters.com/$1 -O "runew$interp.jpg" 2> /dev/null`;
-  system(@args); 
   $currentpage = '';
 }

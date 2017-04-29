@@ -14,8 +14,8 @@ while(true)
 {
   $i++;
   $interp = sprintf("%04d", $i);
-  $currentpage = get("http://www.lfg.co/page/" . $i . "/");
-  if ($currentpage !~ /og.image" content="([^"]*)"/)
+  $currentpage = get("http://www.lfgcomic.com/page/" . $i);
+  if ($currentpage !~ /(uploads\/comics\/[^"]*)"/)
   {
     exit;
   }
@@ -24,7 +24,6 @@ while(true)
   #print $currentpage;
   #print $1 . " $i\n";
   print $interp . "\n";
-  $discard = `wget $1 -O "lfg$interp.gif"`;
-  system(@args); 
+  $discard = `wget http://newcdn.lfgcomic.com/$1 -O "lfg$interp.gif" 2> /dev/null`;
   $currentpage = '';
 }

@@ -14,8 +14,8 @@ while(true)
 {
   $i++;
   $interp = sprintf("%04d", $i);
-  $currentpage = get("http://www.thenoobcomic.com/comic/" . $i);
-  if ($currentpage !~ /twitter.image" content="([^"]*)"/)
+  $currentpage = get("http://www.thenoobcomic.com/index.php?pos=" . $i);
+  if ($currentpage !~ /(headquarters\/comics\/[A-Za-z0-9_]+\.jpg)/)
   {
     exit;
   }
@@ -24,7 +24,6 @@ while(true)
   #print $currentpage;
   #print $1 . " $i\n";
   print $interp . "\n";
-  $discard = `wget $1 -O "noob$interp.jpg" 2> /dev/null`;
-  system(@args); 
+  $discard = `wget http://www.thenoobcomic.com/$1 -O "noob$interp.jpg" 2> /dev/null`;
   $currentpage = '';
 }

@@ -38,7 +38,6 @@ while(true)
   }
   #print "Getting url: $url\n";
   $discard = `wget $url -O "darkl$interp.jpg" 2>&1 | grep '404 Not Found'`;
-  system(@args); 
   #print "Discard is '$discard', length is " . length($discard) . "\n";
   if (length($discard) > 0)
   {

@@ -25,6 +25,5 @@ while(true)
   #print $1 . " $i\n";
   print $interp . "\n";
   $discard = `wget http://everblue-comic.com/$1 -O "everblue$interp.jpg" 2> /dev/null`;
-  system(@args); 
   $currentpage = '';
 }
