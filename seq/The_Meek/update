@@ -1,0 +1,39 @@
+#!/usr/bin/perl
+
+use LWP::Simple;
+
+my $currentpage = '';
+my $i = 0;
+my $interp = '';
+my @args = '';
+
+print "The Meek:\n";
+$i = `ls *.jpg | wc -l`;
+
+my $archivepage = get("http://www.meekcomic.com/archives/");
+(@urls) = ($archivepage =~ /<span class="comic-archive-thumb"><a href="([^"]*)"/g);
+my $total_comics = scalar @urls;
+
+while(true)
+{
+  $i++;
+  $interp = sprintf("%04d", $i);
+  if ($i > $total_comics)
+  {
+    exit;
+  }
+
+  $currentpage = get($urls[$i-1]);
+  if ($currentpage !~ /og:image" content="([^"]*)"/)
+  {
+    exit;
+  }
+
+  #print $interp;
+  #print $currentpage;
+  #print $1 . " $i\n";
+  print "$interp $1 \n";
+  $discard = `wget $1 -O "meek$interp.jpg" 2> /dev/null`;
+  $currentpage = '';
+}
+
